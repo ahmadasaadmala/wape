@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="ku">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کاتی جوان</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2a3b8f, #4a5bd6);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #ffffff, #ffffff, #ffffff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .time-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .time-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .time-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        
+        .time-card i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .time-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .time-value {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .time-unit {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 5px;
+            display: block;
+        }
+        
+        .ampm {
+            font-size: 1.5rem;
+            color: #ffffff;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        .calendar-section {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .calendar-header h2 {
+            font-size: 30px;
+            color: #fffbfa;
+        }
+        
+        .month-year {
+            font-size: 30px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+        
+        .day-name {
+            text-align: center;
+            padding: 15px 5px;
+            font-weight: bold;
+            color: #ffffff;
+            font-size: 25px;
+        }
+        
+        .day {
+            text-align: center;
+            padding: 15px 5px;
+            border-radius: 10px;
+            transition: all 0.2s;
+            font-size: 1.2rem;
+        }
+        
+        .day:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .today {
+            background: rgb(255, 255, 255);
+            color: #14427b;
+            font-weight: bold;
+        }
+        
+        .other-month {
+            color: rgb(255, 255, 255);
+            opacity: 0.5;
+        }
+        
+        .season-display {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .season {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.08);
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .season:hover {
+            transform: scale(1.05);
+        }
+        
+        .season i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        
+        .season-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .season-date {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .current-season {
+            background: rgba(161, 196, 253, 0.2);
+            box-shadow: 0 0 20px rgba(161, 196, 253, 0.4);
+        }
+        
+        .greeting {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            animation: pulse 4s infinite;
+        }
+        
+        .clock {
+            font-size: 5rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 30px 0;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            background: linear-gradient(to right, #ffffff, #ffffff, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .clock-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .clock-am-pm {
+            font-size: 2rem;
+            color: #ffffff;
+            font-weight: bold;
+            margin-top: -15px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+        }
+        
+        /* تایبەت بە پێنج شتی زیادکراو */
+        .world-clock {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .world-clock h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .world-time-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        
+        .world-time {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .world-time:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .world-time .city {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        
+        .world-time .time {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #4dabf7;
+            text-shadow: 0 0 10px rgba(77, 171, 247, 0.5);
+        }
+        
+        .world-time .timezone {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .prayer-times {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .prayer-times h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .prayer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .prayer-time {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .prayer-time.current {
+            background: rgba(40, 167, 69, 0.2);
+            box-shadow: 0 0 20px rgba(40, 167, 69, 0.4);
+        }
+        
+        .prayer-time:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .prayer-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        
+        .prayer-time-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #ffd43b;
+        }
+        
+        .prayer-remaining {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .moon-phase {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .moon-phase h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .moon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .moon-icon {
+            font-size: 8rem;
+            color: #f8f9fa;
+            animation: moonFloat 6s ease-in-out infinite;
+        }
+        
+        .moon-info {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        
+        .moon-detail {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+        }
+        
+        .countdown {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .countdown h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .countdown-event {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ffd43b;
+            font-weight: bold;
+        }
+        
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-unit {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .countdown-value {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+        
+        .countdown-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.9; }
+            50% { opacity: 1; }
+            100% { opacity: 0.9; }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-20px) translateX(20px) rotate(90deg); }
+            50% { transform: translateY(0) translateX(40px) rotate(180deg); }
+            75% { transform: translateY(20px) translateX(20px) rotate(270deg); }
+            100% { transform: translateY(0) translateX(0) rotate(360deg); }
+        }
+        
+        @keyframes moonFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        h2 {
+            color: white;
+            font-size: 50px;
+            padding: 30px;
+        }
+        
+        hr {
+            width: 1150px;
+            padding: 5px;
+            background-color: white;
+            border-radius: 15px;
+            margin: 20px auto;
+        }
+        
+        table {
+            padding: 80px;
+            width: 1200px;
+            background: linear-gradient(135deg, #1a2a6c, #2a3b8f, #3446cb);
+            box-shadow: 0 0 20px #ffffff;
+            font-size: 30px;
+            border-radius: 30px;
+            margin: 40px auto;
+        }
+        
+        td {
+            font-size: 25px;
+            border-color: #ffffff;
+            align-items: center;
+            font-family: sans-serif;
+            text-align: center;
+            padding: 10px;
+            border-radius: 20px;
+        }
+        
+        th {
+            padding: 20px;
+            border-radius: 20px;
+            font-size: 30px;
+        }
+        
+        /* قیاسی مۆبایل */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 5px;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+                padding: 15px;
+                text-align: center;
+            }
+            
+            hr {
+                width: 90%;
+                margin: 10px auto;
+            }
+            
+            .clock {
+                font-size: 2.5rem;
+                margin: 15px 0;
+            }
+            
+            .clock-am-pm {
+                font-size: 1.2rem;
+            }
+            
+            .time-display {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+                padding: 0 10px;
+            }
+            
+            .time-card {
+                padding: 20px 10px;
+            }
+            
+            .time-card i {
+                font-size: 2rem;
+            }
+            
+            .time-card h2 {
+                font-size: 1.2rem;
+            }
+            
+            .time-value {
+                font-size: 2rem;
+            }
+            
+            .ampm {
+                font-size: 1rem;
+            }
+            
+            .calendar-section,
+            .world-clock,
+            .prayer-times,
+            .moon-phase,
+            .countdown {
+                padding: 15px;
+                margin: 15px 10px;
+            }
+            
+            .calendar-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+            
+            .calendar-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .month-year {
+                font-size: 1.2rem;
+            }
+            
+            .day-name {
+                font-size: 0.8rem;
+                padding: 8px 2px;
+            }
+            
+            .day {
+                font-size: 0.9rem;
+                padding: 10px 2px;
+            }
+            
+            .season-display {
+                flex-direction: column;
+                align-items: center;
+                padding: 0 10px;
+            }
+            
+            .season {
+                width: 100%;
+                max-width: 300px;
+                margin-bottom: 10px;
+            }
+            
+            .world-time-container,
+            .prayer-container,
+            .countdown-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .world-time .time,
+            .countdown-value {
+                font-size: 1.8rem;
+            }
+            
+            .moon-icon {
+                font-size: 5rem;
+            }
+            
+            .moon-info {
+                font-size: 1.2rem;
+            }
+            
+            .moon-detail {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+            
+            table {
+                width: 100%;
+                padding: 20px;
+                margin: 20px 10px;
+                font-size: 1rem;
+                display: block;
+                overflow-x: auto;
+            }
+            
+            th, td {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+            
+            .greeting {
+                font-size: 1.2rem;
+                padding: 15px;
+                margin: 0 10px;
+            }
+            
+            marquee {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .time-display,
+            .world-time-container,
+            .prayer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .countdown-container {
+                gap: 10px;
+            }
+            
+            .countdown-unit {
+                min-width: 80px;
+                padding: 15px;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
+            
+            .calendar-grid {
+                gap: 3px;
+            }
+            
+            .day {
+                padding: 8px 1px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-background" id="animated-bg"></div>
+    
+    <div class="container">
+        <header>
+            <marquee>
+                <h1>به خێربێن بۆ کاتی ئێستا</h1>
+            </marquee>
+            <hr>
+            <h2>لاپەڕەیەک بۆ بینینی ساڵ و مانگ و ڕۆژ و کات بە شێوەیەکی جوان</h2>
+            <hr>
+        </header>
+        
+        <div class="clock-container">
+            <div class="clock" id="clock">22:23:39</div>
+            <div class="clock-am-pm" id="clock-am-pm">PM</div>
+        </div>
+        
+        <div class="time-display">
+            <div class="time-card">
+                <i class="fas fa-calendar-alt"></i>
+                <h1>ساڵ</h1>
+                <div class="time-value" id="year">2026</div>
+                <span class="time-unit"></span>
+            </div>
+            
+            <div class="time-card">
+                <i class="fas fa-calendar"></i>
+                <h1>مانگ</h1>
+                <div class="time-value" id="month">مانگی 1</div>
+                <span class="time-unit"></span>
+            </div>
+            
+            <div class="time-card">
+                <i class="fas fa-sun"></i>
+                <h1>ڕۆژ</h1>
+                <div class="time-value" id="day">17</div>
+                <span class="time-unit"></span>
+            </div>
+            
+            <div class="time-card">
+                <i class="fas fa-clock"></i>
+                <h1>کاتژمێر</h1>
+                <div class="time-value" id="hour">10<span class="ampm">PM</span></div>
+                <span class="time-unit"></span>
+            </div>
+        </div>
+        
+        <br><br><hr>
+        
+        <!-- بەشی نوێ: کاتژمێری جیھانی -->
+        <div class="world-clock">
+            <h2><i class="fas fa-globe"></i> کاتژمێری جیھانی</h2>
+            <div class="world-time-container">
+                <div class="world-time">
+                    <div class="city">نیویۆرک</div>
+                    <div class="time" id="time-ny">00:00</div>
+                    <div class="timezone">(GMT-5)</div>
+                </div>
+                <div class="world-time">
+                    <div class="city">لەندەن</div>
+                    <div class="time" id="time-london">00:00</div>
+                    <div class="timezone">(GMT+0)</div>
+                </div>
+                <div class="world-time">
+                    <div class="city">دوبەی</div>
+                    <div class="time" id="time-dubai">00:00</div>
+                    <div class="timezone">(GMT+4)</div>
+                </div>
+                <div class="world-time">
+                    <div class="city">تۆکیۆ</div>
+                    <div class="time" id="time-tokyo">00:00</div>
+                    <div class="timezone">(GMT+9)</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- بەشی نوێ: کاتی نوێژەکان -->
+        <div class="prayer-times">
+            <h2><i class="fas fa-mosque"></i> کاتی نوێژەکان</h2>
+            <div class="prayer-container" id="prayer-container">
+                <!-- کاتی نوێژەکان لێرە دێنە پێشەوە -->
+            </div>
+        </div>
+        
+        <br><br><div class="calendar-section">
+            <div class="calendar-header">
+                <h2>ڕۆژ ژمێری مانگی ئێستا</h2>
+                <div class="month-year" id="current-month-year">مانگی 1 2026</div>
+            </div>
+            <div class="calendar-grid" id="calendar">
+                <!-- ڕۆژژمێر لێرە دێنە پێشەوە -->
+            </div>
+        </div>
+        
+        <!-- بەشی نوێ: قۆناغەکانی مانگ -->
+        <div class="moon-phase">
+            <h2><i class="fas fa-moon"></i> قۆناغەکانی مانگ</h2>
+            <div class="moon-container">
+                <div class="moon-icon" id="moon-icon">🌕</div>
+                <div class="moon-info" id="moon-phase">مانگی تەواو</div>
+                <div class="moon-detail" id="moon-detail">مانگ لە قۆناغی تەواویدایە</div>
+            </div>
+        </div>
+        
+        <!-- بەشی نوێ: کاتژمێری پێچەوانە -->
+        <div class="countdown">
+            <h2><i class="fas fa-hourglass-half"></i> کاتژمێری پێچەوانە</h2>
+            <div class="countdown-event" id="countdown-event">هەتاوەکو جەژنی نوێ</div>
+            <div class="countdown-container">
+                <div class="countdown-unit">
+                    <div class="countdown-value" id="countdown-days">00</div>
+                    <div class="countdown-label">ڕۆژ</div>
+                </div>
+                <div class="countdown-unit">
+                    <div class="countdown-value" id="countdown-hours">00</div>
+                    <div class="countdown-label">کاتژمێر</div>
+                </div>
+                <div class="countdown-unit">
+                    <div class="countdown-value" id="countdown-minutes">00</div>
+                    <div class="countdown-label">خولەک</div>
+                </div>
+                <div class="countdown-unit">
+                    <div class="countdown-value" id="countdown-seconds">00</div>
+                    <div class="countdown-label">چرکە</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="season-display" id="seasons">
+            <!-- وەرزەکان لێرە دێنە پێشەوە -->
+        </div>
+        
+        <div class="greeting" id="greeting">شەوشاد شەوەکەت پڕ بێت لە ئارامی</div>
+    </div>
+    
+    <table border="1">
+        <tbody>
+            <tr>
+                <th><h3>نوێژه کان</h3></th>
+                <th><h3>پارێزگاکان</h3></th>
+            </tr>
+            <tr>
+                <td>نوێژی به یانی</td>
+                <td>هه ولێر</td>
+            </tr>
+            <tr>
+                <td>نوێژی نیوه رۆ</td>
+                <td>سلێمانی</td>
+            </tr>
+            <tr>
+                <td>نوێژی عه سر</td>
+                <td>دهۆک</td>
+            </tr>
+            <tr>
+                <td>نوێژی ئێواره</td>
+                <td>هه ڵه بجه</td>
+            </tr>
+            <tr>
+                <td>نوێژی شێوان</td>
+                <td>که رکووک</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <footer>
+        <p>© ٢٠٢٦ - کاتی جوان | هەموو مافەکان پارێزراون</p>
+        <p>دروستکراوە بە خۆشەویستی بۆ زمانی کوردی</p>
+    </footer>
+
+    <script>
+        // Elements
+        const clockElement = document.getElementById('clock');
+        const clockAmPmElement = document.getElementById('clock-am-pm');
+        const yearElement = document.getElementById('year');
+        const monthElement = document.getElementById('month');
+        const dayElement = document.getElementById('day');
+        const hourElement = document.getElementById('hour');
+        const calendarElement = document.getElementById('calendar');
+        const currentMonthYearElement = document.getElementById('current-month-year');
+        const seasonsElement = document.getElementById('seasons');
+        const greetingElement = document.getElementById('greeting');
+        const animatedBgElement = document.getElementById('animated-bg');
+        
+        // نوێ: کاتژمێری جیھانی
+        const timeNYElement = document.getElementById('time-ny');
+        const timeLondonElement = document.getElementById('time-london');
+        const timeDubaiElement = document.getElementById('time-dubai');
+        const timeTokyoElement = document.getElementById('time-tokyo');
+        
+        // نوێ: کاتی نوێژەکان
+        const prayerContainerElement = document.getElementById('prayer-container');
+        
+        // نوێ: قۆناغەکانی مانگ
+        const moonIconElement = document.getElementById('moon-icon');
+        const moonPhaseElement = document.getElementById('moon-phase');
+        const moonDetailElement = document.getElementById('moon-detail');
+        
+        // نوێ: کاتژمێری پێچەوانە
+        const countdownEventElement = document.getElementById('countdown-event');
+        const countdownDaysElement = document.getElementById('countdown-days');
+        const countdownHoursElement = document.getElementById('countdown-hours');
+        const countdownMinutesElement = document.getElementById('countdown-minutes');
+        const countdownSecondsElement = document.getElementById('countdown-seconds');
+        
+        // Kurdish month names
+        const kurdishMonths = [
+            "مانگی 1", "مانگی 2", "مانگی 3", "مانگی 4", "مانگی 5",
+            "مانگی 6", "مانگی 7", "مانگی 8", "مانگی 9", "مانگی 10",
+            "مانگی 11", "مانگی 12"
+        ];
+        
+        // Kurdish day names
+        const kurdishDays = ["یەکشەممە", "دووشەممە", "سێشەممە", "چوارشەممە", "پێنجشەممە", "هەینی", "شەممە"];
+        
+        // Seasons data
+        const seasons = [
+            { name: "بەهار", icon: "fas fa-seedling", startMonth: 3, startDay: 21, endMonth: 5, endDay: 21 },
+            { name: "ھاوین", icon: "fas fa-sun", startMonth: 6, startDay: 22, endMonth: 8, endDay: 22 },
+            { name: "پاییز", icon: "fas fa-leaf", startMonth: 9, startDay: 23, endMonth: 11, endDay: 23 },
+            { name: "زستان", icon: "fas fa-snowflake", startMonth: 12, startDay: 21, endMonth: 2, endDay: 21 }
+        ];
+        
+        // Greetings based on time of day
+        const greetings = [
+            { start: 0, end: 5, message: "شەوشاد شەوەکەت خۆش بێت" },
+            { start: 5, end: 12, message: "بەیانی باش ڕۆژەکەت پڕ بێت لە خۆشی" },
+            { start: 12, end: 17, message: "نیوەڕۆ باش کاتێکی خۆشت هەبێت" },
+            { start: 17, end: 21, message: "ئێوارە باش ئێوارەکەت خۆش بێت" },
+            { start: 21, end: 24, message: "شەوشاد شەوەکەت پڕ بێت لە ئارامی" }
+        ];
+        
+        // نوێ: کاتی نوێژەکان
+        const prayerTimes = [
+            { name: "به‌یانی", time: "05:30", icon: "fas fa-sunrise" },
+            { name: "نیوەڕۆ", time: "12:30", icon: "fas fa-sun" },
+            { name: "عەسر", time: "15:45", icon: "fas fa-sun" },
+            { name: "ئێوارە", time: "18:20", icon: "fas fa-sunset" },
+            { name: "شەو", time: "19:45", icon: "fas fa-moon" }
+        ];
+        
+        // نوێ: قۆناغەکانی مانگ
+        const moonPhases = [
+            { name: "مانگی نوێ", icon: "🌑", description: "مانگ لە قۆناغی نوێیدایە" },
+            { name: "مانگی یەکەم", icon: "🌓", description: "مانگ لە قۆناغی یەکەمدایە" },
+            { name: "مانگی پڕ", icon: "🌕", description: "مانگ لە قۆناغی تەواویدایە" },
+            { name: "مانگی کۆتایی", icon: "🌗", description: "مانگ لە قۆناغی کۆتاییدایە" }
+        ];
+        
+        // نوێ: ڕووداوەکانی کاتژمێری پێچەوانە
+        const countdownEvents = [
+            { name: "هەتاوەکو جەژنی نوێ", date: "2026-03-21" },
+            { name: "هەتاوەکو مانگی ڕەمەزان", date: "2026-02-18" },
+            { name: "هەتاوەکو جەژنی قوربان", date: "2026-06-06" }
+        ];
+        
+        // Convert 24-hour to 12-hour format
+        function convertTo12Hour(hour) {
+            if (hour === 0) {
+                return { hour: 12, ampm: "AM" };
+            } else if (hour < 12) {
+                return { hour: hour, ampm: "AM" };
+            } else if (hour === 12) {
+                return { hour: 12, ampm: "PM" };
+            } else {
+                return { hour: hour - 12, ampm: "PM" };
+            }
+        }
+        
+        // نوێ: دروستکردنی بنەچەی ئەنیمەیشن
+        function createAnimatedBackground() {
+            for (let i = 0; i < 20; i++) {
+                const element = document.createElement('div');
+                element.classList.add('floating-element');
+                
+                // قەبارە و شوێن
+                const size = Math.random() * 60 + 20;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const delay = Math.random() * 15;
+                
+                element.style.width = `${size}px`;
+                element.style.height = `${size}px`;
+                element.style.left = `${left}%`;
+                element.style.top = `${top}%`;
+                element.style.animationDelay = `${delay}s`;
+                element.style.opacity = Math.random() * 0.1 + 0.05;
+                
+                animatedBgElement.appendChild(element);
+            }
+        }
+        
+        // نوێ: نوێکردنەوەی کاتژمێری جیھانی
+        function updateWorldClocks() {
+            const now = new Date();
+            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+            
+            // نیویۆرک (GMT-5)
+            const nyTime = new Date(utc + (-5 * 3600000));
+            timeNYElement.textContent = formatTime(nyTime);
+            
+            // لەندەن (GMT+0)
+            const londonTime = new Date(utc);
+            timeLondonElement.textContent = formatTime(londonTime);
+            
+            // دوبەی (GMT+4)
+            const dubaiTime = new Date(utc + (4 * 3600000));
+            timeDubaiElement.textContent = formatTime(dubaiTime);
+            
+            // تۆکیۆ (GMT+9)
+            const tokyoTime = new Date(utc + (9 * 3600000));
+            timeTokyoElement.textContent = formatTime(tokyoTime);
+        }
+        
+        function formatTime(date) {
+            return date.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
+        }
+        
+        // نوێ: دروستکردنی کاتی نوێژەکان
+        function generatePrayerTimes() {
+            prayerContainerElement.innerHTML = '';
+            
+            const now = new Date();
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+            
+            prayerTimes.forEach((prayer, index) => {
+                const prayerElement = document.createElement('div');
+                prayerElement.className = 'prayer-time';
+                
+                // دەستنیشانکردنی کاتی ئێستای نوێژ
+                const prayerTimeParts = prayer.time.split(':');
+                const prayerTimeInMinutes = parseInt(prayerTimeParts[0]) * 60 + parseInt(prayerTimeParts[1]);
+                
+                // تەواوبوونی کاتی نوێژ (٤٥ خولەک دوای دەستپێکردن)
+                const prayerEndTime = prayerTimeInMinutes + 45;
+                
+                let isCurrent = false;
+                if (currentTime >= prayerTimeInMinutes && currentTime <= prayerEndTime) {
+                    isCurrent = true;
+                    prayerElement.classList.add('current');
+                }
+                
+                // حیسابکردنی کاتی ماوە
+                let timeRemaining = '';
+                if (currentTime < prayerTimeInMinutes) {
+                    const remainingMinutes = prayerTimeInMinutes - currentTime;
+                    const hours = Math.floor(remainingMinutes / 60);
+                    const minutes = remainingMinutes % 60;
+                    timeRemaining = `${hours} کاتژمێر و ${minutes} خولەک ماوە`;
+                } else if (currentTime <= prayerEndTime) {
+                    const remainingMinutes = prayerEndTime - currentTime;
+                    timeRemaining = `${remainingMinutes} خولەک ماوە`;
+                } else {
+                    timeRemaining = "تەواو بوو";
+                }
+                
+                prayerElement.innerHTML = `
+                    <i class="${prayer.icon}"></i>
+                    <div class="prayer-name">${prayer.name}</div>
+                    <div class="prayer-time-value">${prayer.time}</div>
+                    <div class="prayer-remaining">${timeRemaining}</div>
+                `;
+                
+                prayerContainerElement.appendChild(prayerElement);
+            });
+        }
+        
+        // نوێ: دیاریکردنی قۆناغی مانگ
+        function updateMoonPhase() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth();
+            const day = now.getDate();
+            
+            // هەڵسەنگاندنی قۆناغی مانگ (نموونەیی)
+            const daysInMonth = 29.53; // مانگی کەمین
+            const phase = ((year * 12 + month + day / 30) * 29.53) % 29.53;
+            
+            let phaseIndex = 0;
+            let phaseDescription = "";
+            
+            if (phase < 7.38) {
+                phaseIndex = 0; // مانگی نوێ
+                phaseDescription = "مانگ لە قۆناغی نوێیدایە";
+            } else if (phase < 14.77) {
+                phaseIndex = 1; // مانگی یەکەم
+                phaseDescription = "مانگ لە قۆناغی یەکەمدایە";
+            } else if (phase < 22.15) {
+                phaseIndex = 2; // مانگی پڕ
+                phaseDescription = "مانگ لە قۆناغی تەواویدایە";
+            } else {
+                phaseIndex = 3; // مانگی کۆتایی
+                phaseDescription = "مانگ لە قۆناغی کۆتاییدایە";
+            }
+            
+            moonIconElement.textContent = moonPhases[phaseIndex].icon;
+            moonPhaseElement.textContent = moonPhases[phaseIndex].name;
+            moonDetailElement.textContent = `${phaseDescription} (ڕۆژی ${Math.floor(phase)} لە مانگ)`;
+        }
+        
+        // نوێ: نوێکردنەوەی کاتژمێری پێچەوانە
+        function updateCountdown() {
+            const now = new Date();
+            const currentEvent = countdownEvents[0]; // یەکەم ڕووداو
+            const targetDate = new Date(currentEvent.date);
+            
+            countdownEventElement.textContent = currentEvent.name;
+            
+            // حیسابکردنی جیاوازی
+            const diff = targetDate.getTime() - now.getTime();
+            
+            if (diff > 0) {
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                countdownDaysElement.textContent = days.toString().padStart(2, '0');
+                countdownHoursElement.textContent = hours.toString().padStart(2, '0');
+                countdownMinutesElement.textContent = minutes.toString().padStart(2, '0');
+                countdownSecondsElement.textContent = seconds.toString().padStart(2, '0');
+            } else {
+                // ئەگەر کات تەواو بووبێت
+                countdownDaysElement.textContent = "00";
+                countdownHoursElement.textContent = "00";
+                countdownMinutesElement.textContent = "00";
+                countdownSecondsElement.textContent = "00";
+            }
+        }
+        
+        // Update time function
+        function updateTime() {
+            const now = new Date();
+            
+            // Get current hour for conversion
+            const currentHour24 = now.getHours();
+            const time12 = convertTo12Hour(currentHour24);
+            
+            // Update digital clock (24-hour format)
+            const hours24 = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            clockElement.textContent = `${hours24}:${minutes}:${seconds}`;
+            
+            // Update AM/PM for digital clock
+            clockAmPmElement.textContent = time12.ampm;
+            
+            // Update year, month, day, hour (12-hour format for hour card)
+            yearElement.textContent = now.getFullYear();
+            monthElement.textContent = kurdishMonths[now.getMonth()];
+            dayElement.textContent = now.getDate();
+            hourElement.innerHTML = `${time12.hour}<span class="ampm">${time12.ampm}</span>`;
+            
+            // Update greeting based on time of day
+            const currentHour = now.getHours();
+            for (const greeting of greetings) {
+                if (currentHour >= greeting.start && currentHour < greeting.end) {
+                    greetingElement.textContent = greeting.message;
+                    break;
+                }
+            }
+            
+            // نوێ: نوێکردنەوەی کاتژمێری جیھانی
+            updateWorldClocks();
+            
+            // نوێ: نوێکردنەوەی کاتی نوێژەکان
+            generatePrayerTimes();
+            
+            // نوێ: نوێکردنەوەی قۆناغی مانگ
+            updateMoonPhase();
+            
+            // نوێ: نوێکردنەوەی کاتژمێری پێچەوانە
+            updateCountdown();
+        }
+        
+        // Generate calendar for current month
+        function generateCalendar() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            const currentMonth = now.getMonth();
+            const today = now.getDate();
+            
+            // Set current month and year
+            currentMonthYearElement.textContent = `${kurdishMonths[currentMonth]} ${currentYear}`;
+            
+            // Clear calendar
+            calendarElement.innerHTML = '';
+            
+            // Add day names
+            for (const dayName of kurdishDays) {
+                const dayNameElement = document.createElement('div');
+                dayNameElement.className = 'day-name';
+                dayNameElement.textContent = dayName;
+                calendarElement.appendChild(dayNameElement);
+            }
+            
+            // Get first day of month and total days in month
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const lastDay = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const prevMonthLastDay = new Date(currentYear, currentMonth, 0).getDate();
+            
+            // Add days from previous month
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day other-month';
+                dayElement.textContent = prevMonthLastDay - i;
+                calendarElement.appendChild(dayElement);
+            }
+            
+            // Add days from current month
+            for (let i = 1; i <= lastDay; i++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day';
+                dayElement.textContent = i;
+                
+                // Highlight today
+                if (i === today) {
+                    dayElement.classList.add('today');
+                }
+                
+                calendarElement.appendChild(dayElement);
+            }
+            
+            // Calculate how many days from next month to add
+            const totalCells = 42; // 6 weeks * 7 days
+            const nextMonthDays = totalCells - (firstDay + lastDay);
+            
+            // Add days from next month
+            for (let i = 1; i <= nextMonthDays; i++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day other-month';
+                dayElement.textContent = i;
+                calendarElement.appendChild(dayElement);
+            }
+        }
+        
+        // Generate seasons display
+        function generateSeasons() {
+            const now = new Date();
+            const currentMonth = now.getMonth() + 1; // Months are 0-indexed in JS
+            const currentDay = now.getDate();
+            
+            seasonsElement.innerHTML = '';
+            
+            // Determine current season
+            let currentSeasonIndex = -1;
+            
+            for (let i = 0; i < seasons.length; i++) {
+                const season = seasons[i];
+                
+                // Check if current date falls within this season
+                const isCurrentSeason = 
+                    (currentMonth > season.startMonth || 
+                    (currentMonth === season.startMonth && currentDay >= season.startDay)) &&
+                    (currentMonth < season.endMonth || 
+                    (currentMonth === season.endMonth && currentDay <= season.endDay));
+                
+                // Handle winter (crosses year boundary)
+                if (season.startMonth > season.endMonth) {
+                    const isWinter = 
+                        (currentMonth > season.startMonth || 
+                        (currentMonth === season.startMonth && currentDay >= season.startDay)) ||
+                        (currentMonth < season.endMonth || 
+                        (currentMonth === season.endMonth && currentDay <= season.endDay));
+                    
+                    if (isWinter) {
+                        currentSeasonIndex = i;
+                    }
+                } else if (isCurrentSeason) {
+                    currentSeasonIndex = i;
+                }
+                
+                // Create season element
+                const seasonElement = document.createElement('div');
+                seasonElement.className = 'season';
+                
+                // Highlight current season
+                if (i === currentSeasonIndex) {
+                    seasonElement.classList.add('current-season');
+                }
+                
+                // Set season icon and info
+                seasonElement.innerHTML = `
+                    <i class="${season.icon}"></i>
+                    <div class="season-name">${season.name}</div>
+                    <div class="season-date">${season.startDay}/${season.startMonth} - ${season.endDay}/${season.endMonth}</div>
+                `;
+                
+                seasonsElement.appendChild(seasonElement);
+            }
+        }
+        
+        // Initialize everything
+        function init() {
+            // دروستکردنی بنەچەی ئەنیمەیشن
+            createAnimatedBackground();
+            
+            // دەستپێکردنی هەموو بەشەکان
+            updateTime();
+            generateCalendar();
+            generateSeasons();
+            
+            // نوێکردنەوەی کات هەموو چرکەیەک
+            setInterval(updateTime, 1000);
+            
+            // نوێکردنەوەی ڕۆژژمێر و وەرزەکان هەموو خولەکێک
+            setInterval(() => {
+                generateCalendar();
+                generateSeasons();
+            }, 60000);
+        }
+        
+        // Start the application
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
